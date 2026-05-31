@@ -1,0 +1,42 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Image from "astro/components/Image.astro";
+import { getEntryBySlug } from "astro:content";
+
+type props = {
+  blog: CollectionEntry<"blog">;
+};
+
+const { slug } = Astro.params;
+const blog = await getEntryBySlug("blog", slug as string);
+
+if (!blog) {
+  return Astro.redirect("/404");
+}
+
+const { title, description, image } = blog.data;
+const { Content } = await blog.render();
+---
+
+<Layout title={title} image="" descrption={description}>
+  <Image
+    class={"mx-auto"}
+    src={image}
+    alt={"first image"}
+    width={1024}
+    height={768}
+  />
+  <div
+    class="prose prose-lg max-w-5xl mx-auto py-4
+         prose-headings:text-blue-700
+         dark:prose-headings:text-blue-400
+         prose-p:text-gray-700
+         dark:prose-p:text-gray-200
+         prose-li:text-gray-700
+         dark:prose-li:text-gray-200
+         dark:prose-invert"
+  >
+    <Content />
+  </div>
+</Layout>

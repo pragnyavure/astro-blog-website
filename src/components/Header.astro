@@ -1,0 +1,63 @@
+<nav class="flex items-center justify-between px-10 py-6 border-b dark:border-gray-700">
+
+  <h1 class="text-4xl font-bold">
+    My Blogs
+  </h1>
+
+  <div class="flex gap-8 text-sm items-center">
+
+    <a href="/">Home</a>
+
+    <a href="/blog">Blogs</a>
+
+    <a href="/contact">Contact Us</a>
+
+    <button
+      id="theme-toggle"
+      class="border px-4 py-2 rounded-full dark:border-gray-500 hover:scale-110 transition"
+      
+    >
+      🌙
+    </button>
+
+  </div>
+
+</nav>
+
+<script>
+
+  const themeToggle = document.getElementById("theme-toggle");
+
+  // Apply saved theme on page load
+  if (localStorage.getItem("theme") === "dark") {
+
+    document.documentElement.classList.add("dark");
+
+    if (themeToggle) {
+      themeToggle.innerHTML = "☀️";
+    }
+
+  }
+
+  // Toggle theme
+  themeToggle?.addEventListener("click", () => {
+
+    document.documentElement.classList.toggle("dark");
+
+    if (document.documentElement.classList.contains("dark")) {
+
+      localStorage.setItem("theme", "dark");
+
+      themeToggle.innerHTML = "☀️";
+
+    } else {
+
+      localStorage.setItem("theme", "light");
+
+      themeToggle.innerHTML = "🌙";
+
+    }
+
+  });
+
+</script>
